@@ -1,0 +1,117 @@
+<div class="wrapper">
+  <div class="page-header header-filter">
+    <div class="squares square1"></div>
+    <div class="squares square2"></div>
+    <div class="squares square3"></div>
+    <div class="squares square4"></div>
+    <div class="squares square5"></div>
+    <div class="squares square6"></div>
+    <div class="squares square7"></div>
+    <div class="container">
+      <div class="content-center brand">
+        <h1 class="h1-seo">IMC•</h1>
+        <h3>Calcule seu IMC!</h3>
+      </div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="section section-signup">
+      <div class="container">
+        <div class="squares square-1"></div>
+        <div class="squares square-2"></div>
+        <div class="squares square-3"></div>
+        <div class="squares square-4"></div>
+        <div class="row row-grid justify-content-between align-items-center">
+          <div class="col-lg-6">
+            <h3 class="display-3 text-white">Índice de Massa Corporal (IMC)</h3>
+            <p class="text-white mb-3">
+              IMC é a sigla para Índice de Massa Corpórea, parâmetro adotado
+              pela Organização Mundial de Saúde para calcular o peso ideal de
+              cada pessoa.<br />
+              O índice é calculado da seguinte maneira: divide-se o peso do
+              paciente pela sua altura elevada ao quadrado.<br />
+              Diz-se que o indivíduo tem peso normal quando o resultado do IMC
+              está entre 18,5 e 24,9. Quer descobrir seu IMC? Insira seu peso e
+              sua altura nos campos abaixo e compare com os índices da
+              tabela.<br />
+              Importante: siga os exemplos e use pontos como separadores.
+            </p>
+          </div>
+          <div class="col-lg-6 mb-lg-auto">
+            <div class="card card-register">
+              <div class="card-header">
+                <img
+                  alt="Card image"
+                  class="card-img"
+                  src="assets/img/square1-red.png"
+                />
+
+                <h4 class="card-title">Calculo</h4>
+              </div>
+              <div class="card-body">
+                <form class="form" [formGroup]="form">
+                  <div class="input-group">
+                    <input
+                      class="form-control"
+                      placeholder="Nome"
+                      type="text"
+                      formControlName="nome"
+                      *ngIf="!localStorage.get('usuario')"
+                    />
+                  </div>
+                  <div class="input-group">
+                    <input
+                      class="form-control"
+                      placeholder="Peso"
+                      type="text"
+                      formControlName="peso"
+                    />
+                  </div>
+                  <div class="input-group">
+                    <input
+                      class="form-control"
+                      placeholder="Altura"
+                      type="text"
+                      formControlName="altura"
+                    />
+                  </div>
+                </form>
+              </div>
+              <div class="card-footer">
+                <button
+                  class="btn btn-danger btn-round btn-lg"
+                  (click)="calcular()"
+                  [disabled]="!form.valid"
+                >
+                  Calcular
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table class="table" width="80%" *ngIf="imcLista.length > 0">
+    <thead>
+      <tr>
+        <th class="text-center">#</th>
+        <th>Nome</th>
+        <th>Peso</th>
+        <th>Altura</th>
+        <th>IMC</th>
+        <th>Data</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of imcLista">
+        <td class="text-center">1</td>
+        <td>{{ item.usuario?.nome }}</td>
+        <td>{{ item.peso }}</td>
+        <td>{{ item.altura }}</td>
+        <td>{{ item.imc }}</td>
+        <td>{{ item.data }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

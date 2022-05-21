@@ -1,0 +1,30 @@
+version: '3.8'  
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "-u", "root", "ping"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=calculadoraimc
+    volumes:
+      - ./.data:/var/lib/mysql
+    restart: always
+  api:
+    container_name: calculadoraimc-api
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      - mysql    

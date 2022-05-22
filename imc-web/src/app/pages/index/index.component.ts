@@ -94,17 +94,17 @@ export class IndexComponent implements OnInit {
         tipo: "primary",
         texto: "Abaixo do peso",
       };
-    } else if (imc.imc >= 18.5 && imc.imc <= 24.9) {
+    } else if (imc.imc >= 18.5 && imc.imc <= 24.999) {
       return {
         tipo: "info",
         texto: "Peso normal",
       };
-    } else if (imc.imc >= 25 && imc.imc <= 29.9) {
+    } else if (imc.imc >= 25 && imc.imc <= 29.999) {
       return {
         tipo: "success",
         texto: "Sobrepeso",
       };
-    } else if (imc.imc >= 30 && imc.imc <= 34.9) {
+    } else if (imc.imc >= 30 && imc.imc <= 34.999) {
       return {
         tipo: "default",
         texto: "Obesidade grau I",

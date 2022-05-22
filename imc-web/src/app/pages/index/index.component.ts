@@ -14,12 +14,15 @@ export class IndexComponent implements OnInit {
   localStorage = this.storage;
   form: FormGroup;
   imcLista: Imc[] = [];
+  error: object;
+  imcMensagem: object;
   constructor(
     private storage: LocalStorageService,
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
     private imcService: ImcService
   ) {}
+
   ngOnInit() {
     this.form = this.fb.group({
       nome: [null, Validators.required],
@@ -38,7 +41,7 @@ export class IndexComponent implements OnInit {
     if (this.storage.get("usuario")) {
       this.imcService.getAll(this.storage.get("usuario").id).subscribe(
         (imc) => {
-          console.log(imc);
+          this.imcLista = imc;
         },
         (error) => {
           console.error(error);
@@ -75,11 +78,47 @@ export class IndexComponent implements OnInit {
   salvarImc(idUsuario, imcEntity) {
     this.imcService.save(idUsuario, imcEntity).subscribe(
       (imc) => {
+        this.imcMensagem = this.verificaImc(imc);
         this.imcLista = [...this.imcLista, imc];
       },
       (error) => {
+        this.error = error.error;
         console.error(error);
       }
     );
+  }
+
+  verificaImc(imc: Imc): object {
+    if (imc.imc < 18.5) {
+      return {
+        tipo: "primary",
+        texto: "Abaixo do peso",
+      };
+    } else if (imc.imc >= 18.5 && imc.imc <= 24.9) {
+      return {
+        tipo: "info",
+        texto: "Peso normal",
+      };
+    } else if (imc.imc >= 25 && imc.imc <= 29.9) {
+      return {
+        tipo: "success",
+        texto: "Sobrepeso",
+      };
+    } else if (imc.imc >= 30 && imc.imc <= 34.9) {
+      return {
+        tipo: "default",
+        texto: "Obesidade grau I",
+      };
+    } else if (imc.imc >= 35 && imc.imc <= 39.9) {
+      return {
+        tipo: "warning",
+        texto: "Obesidade grau II",
+      };
+    } else if (imc.imc >= 40) {
+      return {
+        tipo: "danger",
+        texto: "Obesidade grau III",
+      };
+    }
   }
 }

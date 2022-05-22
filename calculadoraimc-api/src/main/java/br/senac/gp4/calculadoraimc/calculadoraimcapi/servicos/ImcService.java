@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ImcService {
 
-    Double calculaImcESalva(Long usuarioId, ImcDto imcDto);
+    Imc calculaImcESalva(Long usuarioId, ImcDto imcDto);
 
     List<Imc> pegarTodos(Long idUsuario);
 }

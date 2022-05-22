@@ -24,7 +24,7 @@ public class ImcResource {
     private final ImcService imcService;
 
     @PostMapping("/{usuarioId}")
-    public ResponseEntity<Double> calculaImcESalva(@PathVariable Long usuarioId, @RequestBody ImcDto imcDto) {
+    public ResponseEntity<Imc> calculaImcESalva(@PathVariable Long usuarioId, @RequestBody ImcDto imcDto) {
         return ResponseEntity.ok(imcService.calculaImcESalva(usuarioId, imcDto));
     }
 

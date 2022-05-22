@@ -14,7 +14,7 @@
       </div>
     </div>
   </div>
-  <div class="main">
+  <div class="main" class="col-12">
     <div class="section section-signup">
       <div class="container">
         <div class="squares square-1"></div>
@@ -22,6 +22,11 @@
         <div class="squares square-3"></div>
         <div class="squares square-4"></div>
         <div class="row row-grid justify-content-between align-items-center">
+          <div class="col-lg-12">
+            <alert [type]="'danger'" [dismissible]="true" *ngIf="error">
+              {{ error.description }}
+            </alert>
+          </div>
           <div class="col-lg-6">
             <h3 class="display-3 text-white">Índice de Massa Corporal (IMC)</h3>
             <p class="text-white mb-3">
@@ -88,30 +93,43 @@
               </div>
             </div>
           </div>
+          <div class="col-lg-12">
+            <alert
+              [type]="imcMensagem.tipo"
+              [dismissible]="true"
+              *ngIf="imcMensagem"
+            >
+              {{ imcMensagem.texto }}
+            </alert>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <table class="table" width="80%" *ngIf="imcLista.length > 0">
-    <thead>
-      <tr>
-        <th class="text-center">#</th>
-        <th>Nome</th>
-        <th>Peso</th>
-        <th>Altura</th>
-        <th>IMC</th>
-        <th>Data</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of imcLista">
-        <td class="text-center">1</td>
-        <td>{{ item.usuario?.nome }}</td>
-        <td>{{ item.peso }}</td>
-        <td>{{ item.altura }}</td>
-        <td>{{ item.imc }}</td>
-        <td>{{ item.data }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="col-12">
+    <table class="table" width="80%" *ngIf="imcLista.length > 0">
+      <thead>
+        <tr>
+          <th class="text-center">#</th>
+          <th>Nome</th>
+          <th>Peso</th>
+          <th>Altura</th>
+          <th>IMC</th>
+          <th>Resultado</th>
+          <th>Data</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of imcLista">
+          <td class="text-center">{{ item.id }}</td>
+          <td>{{ item.usuario?.nome }}</td>
+          <td>{{ item.peso }}</td>
+          <td>{{ item.altura }}</td>
+          <td>{{ item.imc | number: "2.2" }}</td>
+          <td>{{ verificaImc(item).texto }}</td>
+          <td>{{ item.data | date: "dd/MM/yyyy HH:mm:ss" }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

@@ -22,7 +22,7 @@ public class ImcServiceImpl implements ImcService {
     private final UsuarioRepository usuarioRepository;
 
     @Override
-    public Double calculaImcESalva(Long usuarioId, ImcDto imcDto) {
+    public Imc calculaImcESalva(Long usuarioId, ImcDto imcDto) {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado!"));
         Imc imc = new Imc();
@@ -33,8 +33,8 @@ public class ImcServiceImpl implements ImcService {
         imc.setImc(imcCalculado);
         imc.setUsuario(usuario);
         imc.setData(LocalDateTime.now());
-        imcRepository.save(imc);
-        return imcCalculado;
+        Imc imcSalvo = imcRepository.save(imc);
+        return imcSalvo;
     }
 
     @Override

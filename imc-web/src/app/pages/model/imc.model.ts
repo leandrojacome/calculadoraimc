@@ -3,4 +3,5 @@ export class Imc {
   peso: number;
   altura: number;
   usuario: Usuario;
+  imc: number;
 }

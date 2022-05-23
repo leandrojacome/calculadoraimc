@@ -2,12 +2,12 @@
 
 ### Requisitos para execução
 
-Docker
-Docker Compose
-ou
-Mysql 5.7
-Java 17
-e
+Docker \
+Docker Compose \
+ou \
+Mysql 5.7 \
+Java 17 \
+e \
 Node 12.22.12
 
 ### Como executar

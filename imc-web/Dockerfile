@@ -8,15 +8,15 @@ RUN npm install --verbose
 COPY . .
 
 EXPOSE 4200
-ENTRYPOINT [ "npm", "run", "start" ]
-# RUN npm run build
 
-# FROM nginx:stable as web-stage
+RUN npm run build
 
-# USER root
+FROM nginx:stable as web-stage
 
-# COPY --from=build-stage /usr/src/app/dist /var/www
-# COPY --from=build-stage /usr/src/app/server/nginx.conf /etc/nginx/nginx.conf
+USER root
 
-# EXPOSE 80
-# ENTRYPOINT ["nginx","-g","daemon off;"]
+COPY --from=build-stage /usr/src/app/dist /var/www
+COPY --from=build-stage /usr/src/app/server/nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80
+ENTRYPOINT ["nginx","-g","daemon off;"]
